@@ -41,8 +41,8 @@ int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
     return res;
 }
 
-void Connect(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
-    if (connect(sockfd, sockaddr, addrlen) == -1) {
+void Connect(int sockfd, struct sockaddr *addr, socklen_t addrlen) {
+    if (connect(sockfd, addr, addrlen) == -1) {
         perror("connect failed");
         exit(EXIT_FAILURE);
     }

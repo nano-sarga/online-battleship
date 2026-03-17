@@ -19,10 +19,10 @@ int main() {
 
     int addrlen = sizeof(address);
     int player1_socket = Accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen);
-    std::cout << "Player1 connected!\n";
+    std::cout << "\aPlayer1 connected!\n";
 
     int player2_socket = Accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen);
-    std::cout << "Player2 connected!\n";
+    std::cout << "\aPlayer2 connected!\n";
 
 
     close(player1_socket);
