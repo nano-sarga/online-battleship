@@ -4,7 +4,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <iostream>
-
+#include "board.h"
 
 int main() {
     int player_socket = Socket(AF_INET, SOCK_STREAM, 0);
@@ -31,6 +31,14 @@ int main() {
     Recv(player_socket, buf, lenm);
     buf[lenm] = '\0';
     std::cout << buf;
+
+    Board my_board;
+    board_init(my_board);
+    //ship_placement(my_board);
+    std::cout << "\nFinal board:\n";
+    board_display(my_board);
+
+    Send(player_socket, my_board.grid, sizeof(my_board.grid));
 
     close(player_socket);
 }

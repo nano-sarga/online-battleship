@@ -68,6 +68,9 @@ int main() {
     Send(game.player2.player_socket, &lenm2, sizeof(lenm2));
     Send(game.player2.player_socket, msg2.c_str(), lenm2);
 
+    Recv(player1_socket, game.player1.board.grid, sizeof(game.player1.board.grid));
+    Recv(player2_socket, game.player2.board.grid, sizeof(game.player2.board.grid));
+
     close(player1_socket);
     close(player2_socket);
     close(server_fd);

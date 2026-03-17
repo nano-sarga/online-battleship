@@ -95,11 +95,11 @@ void ship_placement(Board &b) {
 }
 
 // int main() {
-//     Board my_board;
-//     board_init(my_board);
-//     ship_placement(my_board);
-//     std::cout << "\nFinal board:\n";
-//     board_display(my_board);
+// Board my_board;
+// board_init(my_board);
+// ship_placement(my_board);
+// std::cout << "\nFinal board:\n";
+// board_display(my_board);
 //
 //     return 0;
 // }
