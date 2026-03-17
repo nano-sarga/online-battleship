@@ -57,6 +57,17 @@ int main() {
     game.player2.name = player2_usr;
     game.player1_turn = true; // первый ход
 
+    std::string msg1 = "Welcome " + game.player1.name + "! Your opponent is " + game.player2.name + "\n";
+    std::string msg2 = "Welcome " + game.player2.name + "! Your opponent is " + game.player1.name + "\n";
+
+    int lenm1 = msg1.size();
+    Send(game.player1.player_socket, &len1, sizeof(len1));
+    Send(game.player1.player_socket, msg1.c_str(), len1);
+
+    int lenm2 = msg2.size();
+    Send(game.player2.player_socket, &len2, sizeof(len2));
+    Send(game.player2.player_socket, msg2.c_str(), len2);
+
     close(player1_socket);
     close(player2_socket);
     close(server_fd);

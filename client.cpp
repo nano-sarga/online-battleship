@@ -25,5 +25,12 @@ int main() {
     Send(player_socket, &len, sizeof(len));
     Send(player_socket, username.c_str(), len);
 
+    int lenm;
+    Recv(player_socket, &len, sizeof(lenm));
+    char buf[256];
+    Recv(player_socket, buf, lenm);
+    buf[lenm] = '\0';
+    std::cout << buf;
+
     close(player_socket);
 }
