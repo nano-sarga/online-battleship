@@ -1,0 +1,70 @@
+#ifndef ONLINE_BATTLESHIP_SOCKET_H
+#define ONLINE_BATTLESHIP_SOCKET_H
+
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <cstdlib>
+#include <cstdio>
+
+
+int Socket(int domain, int type, int protocol) {
+    int res = socket(domain, type, protocol);
+    if (res == -1) {
+        perror("socket error");
+        exit(EXIT_FAILURE);
+    }
+    return res;
+}
+
+void Bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen) {
+    int res = bind(sockfd, addr, addrlen);
+    if (res == -1) {
+        perror("bind failed");
+        exit(EXIT_FAILURE);
+    }
+}
+
+void Listen(int sockfd, int backlog) {
+    int res = listen(sockfd, backlog);
+    if (res == -1) {
+        perror("listen failed");
+        exit(EXIT_FAILURE);
+    }
+}
+
+int Accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
+    int res = accept(sockfd, addr, addrlen);
+    if (res == -1) {
+        perror("accept failed");
+        exit(EXIT_FAILURE);
+    }
+    return res;
+}
+
+void Connect(int sockfd, struct sockaddr *addr, socklen_t *addrlen) {
+    if (connect(sockfd, sockaddr, addrlen) == -1) {
+        perror("connect failed");
+        exit(EXIT_FAILURE);
+    }
+}
+
+ssize_t Send(int sockfd, const void* buf, size_t len) {
+    ssize_t res = send(sockfd, buf, len, 0);
+    if(res == -1) {
+        perror("send failed");
+        exit(EXIT_FAILURE);
+    }
+    return res;
+}
+
+ssize_t Recv(int sockfd, void* buf, size_t len) {
+    ssize_t res = recv(sockfd, buf, len, 0);
+    if(res == -1) {
+        perror("recv failed");
+        exit(EXIT_FAILURE);
+    }
+    return res;
+}
+
+
+#endif //ONLINE_BATTLESHIP_SOCKET_H
