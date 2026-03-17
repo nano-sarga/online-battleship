@@ -26,7 +26,7 @@ int main() {
     Send(player_socket, username.c_str(), len);
 
     int lenm;
-    Recv(player_socket, &len, sizeof(lenm));
+    Recv(player_socket, &lenm, sizeof(lenm));
     char buf[256];
     Recv(player_socket, buf, lenm);
     buf[lenm] = '\0';

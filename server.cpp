@@ -36,7 +36,7 @@ int main() {
     int len1;
     Recv(player1_socket, &len1, sizeof(len1));
     char buf1[256];
-    Recv(server_fd, buf1, len1);
+    Recv(player1_socket, buf1, len1);
     buf1[len1] = '\0';
     std::string player1_usr = buf1;
 
@@ -46,7 +46,7 @@ int main() {
     int len2;
     Recv(player2_socket, &len2, sizeof(len2));
     char buf2[256];
-    Recv(server_fd, buf2, len2);
+    Recv(player2_socket, buf2, len2);
     buf2[len2] = '\0';
     std::string player2_usr = buf2;
 
@@ -61,12 +61,12 @@ int main() {
     std::string msg2 = "Welcome " + game.player2.name + "! Your opponent is " + game.player1.name + "\n";
 
     int lenm1 = msg1.size();
-    Send(game.player1.player_socket, &len1, sizeof(len1));
-    Send(game.player1.player_socket, msg1.c_str(), len1);
+    Send(game.player1.player_socket, &lenm1, sizeof(lenm1));
+    Send(game.player1.player_socket, msg1.c_str(), lenm1);
 
     int lenm2 = msg2.size();
-    Send(game.player2.player_socket, &len2, sizeof(len2));
-    Send(game.player2.player_socket, msg2.c_str(), len2);
+    Send(game.player2.player_socket, &lenm2, sizeof(lenm2));
+    Send(game.player2.player_socket, msg2.c_str(), lenm2);
 
     close(player1_socket);
     close(player2_socket);
