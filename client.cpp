@@ -17,6 +17,13 @@ int main() {
     Connect(player_socket, (struct sockaddr*)&server_addr, sizeof(server_addr));
     std::cout << "Connected to server\n";
 
+    std::string username;
+    std::cout << "Enter your username: \n";
+    std::cin >> username;
+
+    int len = username.size();
+    Send(player_socket, &len, sizeof(len));
+    Send(player_socket, username.c_str(), len);
 
     close(player_socket);
 }

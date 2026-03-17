@@ -2,7 +2,19 @@
 #include <unistd.h>
 #include <string>
 #include <iostream>
+#include "board.h"
 
+struct Player {
+    std::string name;
+    Board board;
+    int player_socket;
+};
+
+struct Game {
+    Player player1;
+    Player player2;
+    bool player1_turn;
+};
 
 int main() {
     int server_fd = Socket(AF_INET, SOCK_STREAM, 0);
@@ -21,9 +33,29 @@ int main() {
     int player1_socket = Accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen);
     std::cout << "\aPlayer1 connected!\n";
 
+    int len1;
+    Recv(player1_socket, &len1, sizeof(len1));
+    char buf1[256];
+    Recv(server_fd, buf1, len1);
+    buf1[len1] = '\0';
+    std::string player1_usr = buf1;
+
     int player2_socket = Accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen);
     std::cout << "\aPlayer2 connected!\n";
 
+    int len2;
+    Recv(player2_socket, &len2, sizeof(len2));
+    char buf2[256];
+    Recv(server_fd, buf2, len2);
+    buf2[len2] = '\0';
+    std::string player2_usr = buf2;
+
+    Game game;
+    game.player1.player_socket = player1_socket;
+    game.player1.name = player1_usr;
+    game.player2.player_socket = player2_socket;
+    game.player2.name = player2_usr;
+    game.player1_turn = true; // первый ход
 
     close(player1_socket);
     close(player2_socket);
