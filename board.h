@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cctype>
+#include <ctime>
 
 const int size = 10;
 
@@ -94,12 +95,61 @@ void ship_placement(Board &b) {
     }
 }
 
+void random_placement(Board &b) {
+    srand(time(nullptr));
+    int ships[] = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
+
+    for (int i = 0; i < 10; i++) {
+        while(true) {
+            int x = rand() % size;
+            int y = rand() % size;
+            char orientation = (rand() % 2 == 0 ? 'h' : 'v');
+
+            if(can_place(b, x, y, ships[i], orientation)) {
+                place_ship(b, x, y, ships[i], orientation);
+                break;
+            }
+        }
+    }
+}
+
+bool shoot(Board &b, char row, int column) {
+    int x = toupper(row) - 'A';
+    int y = column;
+
+    if (x < 0 || x >= size || y < 0 || y >= size) {
+        return false;
+    }
+
+    if (b.grid[x][y] == '#') {
+        b.grid[x][y] = 'x';
+        return true;
+    }
+    else if (b.grid[x][y] == '~') {
+        b.grid[x][y] = 'o';
+        return false;
+    }
+    return false;
+}
+
+bool win(Board &b) {
+    for (int i = 0; i < size; i++) {
+        for(int j = 0; j < size; j++) {
+            if (b.grid[i][j] == '#') {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 // int main() {
-// Board my_board;
-// board_init(my_board);
-// ship_placement(my_board);
-// std::cout << "\nFinal board:\n";
-// board_display(my_board);
+//     Board my_board;
+//     board_init(my_board);
+//     random_placement(my_board);
+//     //ship_placement(my_board);
+//     std::cout << "\nFinal board:\n";
+//     board_display(my_board);
 //
 //     return 0;
 // }
