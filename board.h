@@ -143,6 +143,23 @@ bool win(Board &b) {
     return true;
 }
 
+void enemy_board_display(Board &b) {
+    std::cout << "  ";
+    for (int i = 0; i < size; i++) std::cout << i << ' ';
+    std::cout << '\n';
+
+    for (int i = 0; i < size; i++) {
+        std::cout << char('A'+i) << ' ';
+        for (int j = 0; j < size; j++) {
+            if (b.grid[i][j] == 'x' || b.grid[i][j] == 'o')
+                std::cout << b.grid[i][j] << ' ';
+            else
+                std::cout << "~ ";
+        }
+        std::cout << '\n';
+    }
+}
+
 // int main() {
 //     Board my_board;
 //     board_init(my_board);

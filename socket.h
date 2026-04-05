@@ -5,6 +5,7 @@
 #include <netinet/in.h>
 #include <cstdlib>
 #include <cstdio>
+#include <iostream>
 
 
 int Socket(int domain, int type, int protocol) {
@@ -59,9 +60,13 @@ ssize_t Send(int sockfd, const void* buf, size_t len) {
 
 ssize_t Recv(int sockfd, void* buf, size_t len) {
     ssize_t res = recv(sockfd, buf, len, 0);
-    if(res == -1) {
+    if (res < 0) {
         perror("recv failed");
-        exit(EXIT_FAILURE);
+       // exit(EXIT_FAILURE);
+    }
+    if (res == 0) {
+        std::cout << "Player disconnected\n";
+        return 0;
     }
     return res;
 }
