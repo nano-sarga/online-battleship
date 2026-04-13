@@ -37,7 +37,8 @@ int main() {
     Board my_board, enemy_board;
     board_init(my_board);
     board_init(enemy_board);
-    random_placement(my_board);
+    place_ship(my_board, 3, 6, 1, 'h');
+    //random_placement(my_board);
     //ship_placement(my_board);
     std::cout << "\nFinal board:\n";
     board_display(my_board);
